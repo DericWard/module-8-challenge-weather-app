@@ -5,16 +5,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <!-- <link rel="stylesheet" href="styles/reset.css" /> -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" /> -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" /> -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
   <title>Weather Dashboard</title>
   <style>
     #today-section {
       box-sizing: border-box;
       -moz-box-sizing: border-box;
       -webkit-box-sizing: border-box;
-      width: 1020px;
+      width: 1000px;
       height: 160px;
       border: 2px solid #969696;
       background: white;
@@ -36,10 +35,6 @@
     .today {
       margin-left: -100px;
     }
-    /* .hr {
-      border-bottom:5px solid red;
-      border-width: 5px;
-    } */
     hr.weather-hr {
       border: none;
       height: 1px;
@@ -62,9 +57,9 @@
   <div class="container-fluid" style="max-width: 1400px">
     <div class="row">
       <aside class="col-lg-3 pb-3">
-        <h2 id="form-heading" class="mt-1 h3 form-label">
-          Search for a City:
-        </h2>
+        <h3 id="form-heading" class="mt-1 h3 form-label">
+          Search for a City
+        </h3>
         <form id="search-form" class="form">
           <div class="form-inline form-group">
             <div class="input-group">
@@ -87,7 +82,7 @@
 
           </div>
           <hr class="hr weather-hr" />
-          <h7>PREVIOUS CITIES AS BUTTONS</H7>
+          <h7>PREVIOUS CITY BUTTONS</H7>
             <hr class="hr weather-hr" id="rule"/>
         </div>
       </aside>
@@ -159,7 +154,7 @@
               <div class="card">
                 <img class="card-img-top" src="">
                 <div class="card-block">
-                    <h4 class="card-title" id="2nd-day">Day after</h4>
+                    <h4 class="card-title" id="5th-day">Day after</h4>
                     <p class="card-text">
                       Icon, temp: xx.xx oC Wind: xxx KPH Humidity: xx%
                     </p>
@@ -175,7 +170,7 @@
               <div class="card">
                 <img class="card-img-top" src="">
                 <div class="card-block">
-                  <h4 class="card-title" id="2nd-day">Day after</h4>
+                  <h4 class="card-title" id="6th-day">Day after</h4>
                   <p class="card-text">
                     Icon temp: xx.xx oC Wind: xxx KPH Humidity: xx%
                   </p>
@@ -197,7 +192,6 @@
 
     </div>
   </div>
-
   
 
   <!-- Moment.js -->
