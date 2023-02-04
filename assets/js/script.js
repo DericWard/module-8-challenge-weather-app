@@ -21,20 +21,19 @@
                     lon: response.coord.lon
                 };
             console.log(APIResponse);
-            console.log("Inside AJAX: " + APIResponse);
+            console.log("Inside AJAX: ", APIResponse);
             APIData(APIResponse);        
         }); 
     });
 
     function APIData(APIResponse) {
-        console.log("outside AJAX:" + APIResponse);
-        console.log("City: " + APIResponse.city);
-        console.log(APIResponse);
-        console.log("Temp: " + APIResponse.temp);
-        console.log("Humidity: " + APIResponse.humidity);
-        console.log("Wind speed: " + APIResponse.windSpeed);
-        console.log("Lat : " + APIResponse.lat);
-        console.log("Lon : " + APIResponse.lon);
+        console.log("outside AJAX:", APIResponse);
+        console.log("City: ", APIResponse.city);
+        console.log("Temp: ", APIResponse.temp);
+        console.log("Humidity: ", APIResponse.humidity);
+        console.log("Wind speed: ", APIResponse.windSpeed);
+        console.log("Lat : ", APIResponse.lat);
+        console.log("Lon : ", APIResponse.lon);
     };
 
 
