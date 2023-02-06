@@ -38,8 +38,8 @@
     let queryURL = "";
 
     function displayToday(response) {
-        cityDisplay.textContent = response.city + " " +  "(" + todaysDate.format("DD/MM/YYYY") + ")";
-        todayTempDisplay.textContent = `Temp: ${response.temp} Degrees C`;
+        cityDisplay.textContent = `${response.city} (${todaysDate.format("DD/MM/YYYY")})`;
+        todayTempDisplay.textContent = `Temp: ${response.temp}\u00B0C`;
         todayHumidityDisplay.textContent = `Humidity: ${response.humidity}%`;
         todayWindSpeedDisplay.textContent = `Wind: ${response.windSpeed} m/s`;
     };
@@ -69,23 +69,23 @@
                 }
 
                 // c = K - 273.15 kelvin to centigrade
-                card1Temp.textContent = `Temp: ${fiveDayArray[0].temp}`;
+                card1Temp.textContent = `Temp: ${fiveDayArray[0].temp}\u00B0C`;
                 card1WindSpeed.textContent = `Wind: ${fiveDayArray[0].wind}`;
                 card1Humidity.textContent = `Humidity: ${fiveDayArray[0].humidity}%`;
                 
-                card2Temp.textContent = `Temp: ${fiveDayArray[1].temp}`;
+                card2Temp.textContent = `Temp: ${fiveDayArray[1].temp}\u00B0C`;
                 card2WindSpeed.textContent = `Wind: ${fiveDayArray[1].wind}`;
                 card2Humidity.textContent = `Humidity: ${fiveDayArray[1].humidity}%`;
 
-                card3Temp.textContent = `Temp: ${fiveDayArray[2].temp}`;
+                card3Temp.textContent = `Temp: ${fiveDayArray[2].temp}\u00B0C`;
                 card3WindSpeed.textContent = `Wind: ${fiveDayArray[2].wind}`;
                 card3Humidity.textContent = `Humidity: ${fiveDayArray[2].humidity}%`;
 
-                card4Temp.textContent = `Temp: ${fiveDayArray[3].temp}`;
+                card4Temp.textContent = `Temp: ${fiveDayArray[3].temp}\u00B0C`;
                 card4WindSpeed.textContent = `Wind: ${fiveDayArray[3].wind}`;
                 card4Humidity.textContent = `Humidity: ${fiveDayArray[3].humidity}%`;
 
-                card5Temp.textContent = `Temp ${fiveDayArray[4].temp}`;
+                card5Temp.textContent = `Temp ${fiveDayArray[4].temp}\u00B0C`;
                 card5WindSpeed.textContent = `Wind: ${fiveDayArray[4].wind}`;
                 card5Humidity.textContent = `Humidity: ${fiveDayArray[4].humidity}%`;
 
