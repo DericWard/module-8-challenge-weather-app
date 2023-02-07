@@ -1,3 +1,7 @@
+
+ul {
+  list-style-type: none;
+}
 .today{
     display: flex;
     flex-direction: column;
@@ -7,6 +11,7 @@
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
    
+    padding-left: 10px;
     height: 160px;
     border: 2px solid #969696;
     background: white;
@@ -28,17 +33,30 @@
   border-bottom: 1px solid black;
   padding: 2rem;
 }
+.city-button {
+  border-style: solid black;
+  margin-top: 10px;
+  margin-left: -20px;
+  width: 100%;
+  padding: 8px;
+}
 #search-button {
+  text-align: center;
+  margin-top: -20px;
   background-color: gray;
   color: white;
   width: 100%;
 }
 input {
-  width: 100%;
+  width: 100% !important;
 }
 aside {
-  border: 2px solid green;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* align-content: center; */
 }
-form{
-  border: 2px solid pink;
-}
+/* form {
+  border: 2px solid blue;
+  width: 100% !important;
+} */

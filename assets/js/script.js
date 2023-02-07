@@ -35,21 +35,33 @@
                     console.log(day.icon);
                     fiveDayArray.push(day);
                 };
-                for (i = 0; i < 5; i++) {
+                for (let i = 0; i < 5; i++) {
                     let cardDate = document.getElementById(`card${i+1}-date`);
-                    let cardIcon = document.getElementById(`card${i+1}-icon`);
+                    let cardIcon = document.getElementById(`card${i+1}-img-top`); // NOT WORKING CORRECTLY
                     let cardTemp = document.getElementById(`card${i+1}-temp`);
                     let cardWind = document.getElementById(`card${i+1}-wind`);
                     let cardHumidity = document.getElementById(`card${i+1}-humidity`);
                     
                     cardDate.textContent = todaysDate.add(1, 'd').format("DD/M/YYYY"); // increment date for each card
-                    // cardIcon = `https://openweathermap.org/img/wn/${fiveDayArray[i].icon}.png`;
+                    // cardIcon.textContent = `https://openweathermap.org/img/wn/${fiveDayArray[i].icon}.png`;
                     cardTemp.textContent = `Temp: ${fiveDayArray[i].temp}\u00B0C`;
                     cardWind.textContent = `Wind: ${fiveDayArray[i].wind} m/sec`;
                     cardHumidity.textContent = `Humidity: ${fiveDayArray[i].humidity}%`;
-                    console.log(cardIcon);              
+                    // console.log(cardIcon);              
                 };    
             });
+    };
+
+    function saveCityButton(city) {
+        let buttonList = document.getElementById("button-list");
+        let buttonListElement = document.createElement("li");
+        let button = document.createElement("button");
+
+        button.innerHTML = city;
+        buttonList.setAttribute("class", "listButton");
+        buttonList.classList.add("city-btns");
+        buttonListElement.appendChild(button);
+        buttonList.appendChild(buttonListElement);
     };
     
     $("#search-button").on("click", function() {
@@ -68,8 +80,9 @@
                     lat: response.coord.lat,
                     lon: response.coord.lon
                 };
-                displayToday(todayAndLatLon)
-                display5Day(todayAndLatLon); 
+                displayToday(todayAndLatLon);
+                display5Day(todayAndLatLon);
+                saveCityButton(searchCity);
             });
     });
 
