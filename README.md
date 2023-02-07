@@ -10,7 +10,7 @@ https://dericward.github.io/module-8-challenge-weather-app/
 ## Desktop screenshot:
 ![image](https://user-images.githubusercontent.com/50495939/217392463-64704384-b014-4dbc-a6a3-0ed3715598a7.png)
 ## Mobile Screenshot:
-![image](https://user-images.githubusercontent.com/50495939/217392540-593199b8-c7e0-458c-9ecd-ad54f2087ec2.png)
+![image](https://user-images.githubusercontent.com/50495939/217393000-c389d7f1-ce32-4a94-b290-29aa55f7fd0f.png)
 
 
 
