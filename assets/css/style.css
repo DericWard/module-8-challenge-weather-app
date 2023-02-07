@@ -1,0 +1,44 @@
+.today{
+    display: flex;
+    flex-direction: column;
+}
+#today-section {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+   
+    height: 160px;
+    border: 2px solid #969696;
+    background: white;
+}
+.card {
+    display: inline;
+}
+.card-deck {
+ display: flex;
+ justify-content: space-between;
+ margin-top: 15px;
+}
+.card-block {
+  background-color: gray;
+  padding: 5px;
+  color: white;
+}
+.input-group-append {
+  border-bottom: 1px solid black;
+  padding: 2rem;
+}
+#search-button {
+  background-color: gray;
+  color: white;
+  width: 100%;
+}
+input {
+  width: 100%;
+}
+aside {
+  border: 2px solid green;
+}
+form{
+  border: 2px solid pink;
+}
