@@ -9,6 +9,9 @@ function displayToday(response) {
     let todayHumidityDisplay = document.getElementById("today-humidity");
     let todayWindSpeedDisplay = document.getElementById("today-wind-speed");
 
+    // let timeSlice = todaysDate._d.slice(16, 24);
+    // console.log(timeslice);
+
     cityDisplay.textContent = `${response.city} (${todaysDate.format("DD/MM/YYYY")})`;
     // timeDisplay.textContent = `@${}`
     todayTempDisplay.textContent = `Temp: ${response.temp}\u00B0C`;
@@ -26,6 +29,7 @@ function display5Day(response) {
             let fiveDayArray = [];
             let K = 273.15; // c = K - 273.15 (kelvin to centigrade conversion)
             console.log(response);
+            
             for(let i = 0; i < 33; i+= 8) {
                 let day = {
                 date: response.list[i].dt_txt,
@@ -70,13 +74,27 @@ function saveCityButton(city) {
     let buttonList = document.getElementById("button-list");
     let buttonListElement = document.createElement("li");
     let button = document.createElement("button");
-
     button.innerHTML = city;
-    button.setAttribute("class", "city-button");
-    buttonList.setAttribute("class", "listButton");
-    buttonList.classList.add("city-btns");
-    buttonListElement.appendChild(button);
-    buttonList.appendChild(buttonListElement);
+
+    // let notInLocalStorage = (localStorage.getItem(city) === null);
+
+    if(localStorage.getItem(city) === null) {        
+        button.setAttribute("class", "city-button");
+        buttonList.setAttribute("class", "listButton");
+        buttonList.classList.add("city-btns");
+        buttonListElement.appendChild(button);
+        buttonList.appendChild(buttonListElement);
+        // localStorage.setItem(???, city);
+    };
+
+    buttonEvents(button);
+};
+
+function buttonEvents(button) {
+    button.addEventListener("click", function() {
+        let searchCity = button.innerHTML;
+        getLatAndLon(searchCity);
+    });
 };
 
 function getLatAndLon(searchCity) {
@@ -100,14 +118,10 @@ function getLatAndLon(searchCity) {
         });
 };
 
-$(".city-button").on("click", function() {
-    console.log("test");
-});
 
 $("#search-button").on("click", function() {
     let searchCity = $("#search-input").val();
     console.log(searchCity);
     getLatAndLon(searchCity);
-    console.log(moment());
   
 });
