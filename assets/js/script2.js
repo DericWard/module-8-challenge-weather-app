@@ -4,11 +4,13 @@ let todaysDate = moment();
 
 function displayToday(response) {
     let cityDisplay = document.getElementById("city");
+    let timeDisplay = document.getElementsByClassName("today-time");
     let todayTempDisplay = document.getElementById("today-temp");
     let todayHumidityDisplay = document.getElementById("today-humidity");
     let todayWindSpeedDisplay = document.getElementById("today-wind-speed");
 
     cityDisplay.textContent = `${response.city} (${todaysDate.format("DD/MM/YYYY")})`;
+    // timeDisplay.textContent = `@${}`
     todayTempDisplay.textContent = `Temp: ${response.temp}\u00B0C`;
     todayHumidityDisplay.textContent = `Humidity: ${response.humidity}%`;
     todayWindSpeedDisplay.textContent = `Wind: ${response.windSpeed} m/s`;
@@ -31,24 +33,36 @@ function display5Day(response) {
                 temp: (response.list[i].main.temp - K).toFixed(2),
                 wind: response.list[i].wind.speed,
                 humidity: response.list[i].main.humidity
-                }
-                console.log(day.icon);
-                fiveDayArray.push(day);
+                };
+
+                let dateYear = day.date.slice(0, 4);
+                let dateMonth = day.date.slice(5, 7);
+                let dateDay = day.date.slice(8, 10);
+                let dayTime = day.date.slice(11, 16);
+
+                day.time = `${dayTime}`;             
+                day.date = `${dateDay}/${dateMonth}/${dateYear}`;
+                fiveDayArray.push(day);   
             };
+            
             for (let i = 0; i < 5; i++) {
                 let cardDate = document.getElementById(`card${i+1}-date`);
-                let cardIcon = document.getElementById(`card${i+1}-img-top`); // NOT WORKING CORRECTLY
+                let cardTime = document.getElementById(`card${i+1}-time`);
+                // let cardIcon = document.getElementById(`card${i+1}-img-top`); // NOT WORKING CORRECTLY
+                let cardIcon = document.getElementById(`card${i+1}-icon`);
                 let cardTemp = document.getElementById(`card${i+1}-temp`);
                 let cardWind = document.getElementById(`card${i+1}-wind`);
                 let cardHumidity = document.getElementById(`card${i+1}-humidity`);
                 
-                cardDate.textContent = todaysDate.add(1, 'd').format("DD/M/YYYY"); // increment date for each card
+                cardDate.textContent = `(${fiveDayArray[i].date})`;// increment date for each card
+                cardTime.textContent = `@${fiveDayArray[i].time}`;
                 // cardIcon.textContent = `https://openweathermap.org/img/wn/${fiveDayArray[i].icon}.png`;
+                // cardIcon.innerHTML = `<img src="https://openweathermap.org/img/wn/${icon}@2x.png"></img>`;
                 cardTemp.textContent = `Temp: ${fiveDayArray[i].temp}\u00B0C`;
                 cardWind.textContent = `Wind: ${fiveDayArray[i].wind} m/sec`;
                 cardHumidity.textContent = `Humidity: ${fiveDayArray[i].humidity}%`;
-                // console.log(cardIcon);              
-            };    
+                // console.log(cardIcon);                      
+            };  
         });
 };
 
@@ -87,24 +101,13 @@ function getLatAndLon(searchCity) {
 };
 
 $(".city-button").on("click", function() {
-    let searchCity = $(".city-button").textContent;
-    console.log("city-button: " + searchCity);
-    getLatAndLon(searchCity);
+    console.log("test");
 });
 
 $("#search-button").on("click", function() {
     let searchCity = $("#search-input").val();
     console.log(searchCity);
     getLatAndLon(searchCity);
+    console.log(moment());
   
 });
-
-
-    
-
-
-
-
-
-
-
