@@ -134,7 +134,7 @@ $(".city-button").on("click", function(event) {
 });
 
 $("#clear-button").on("click", function() {
-    localStorage.clear();
+    localStorage.setItem("cities", JSON.stringify([]));
     let clearHistoryButtons = $("#button-list");
-    $(clearHistoryButtons).hide();
+    $(clearHistoryButtons).html("");
 });

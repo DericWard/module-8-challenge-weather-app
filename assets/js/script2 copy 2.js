@@ -85,18 +85,11 @@ function display5Day(response) {
 
 // use the API data to write to the screen for today's current forecast
 function displayToday(response) {
-    let todaysDate = moment();
-    const $todaySection = $("#today-section");
-    const $cityDisplay = $("#city");
-    let todayTempDisplay = document.getElementById("today-temp");
-    let todayHumidityDisplay = document.getElementById("today-humidity");
-    let todayWindSpeedDisplay = document.getElementById("today-wind-speed");
-
-    $todaySection.show(); // show the hidden today section
-    $cityDisplay.textContent = `${response.city} (${todaysDate.format("DD/MM/YYYY")})`;
-    todayTempDisplay.textContent = `Temp: ${response.temp}\u00B0C`;
-    todayHumidityDisplay.textContent = `Humidity: ${response.humidity}%`;
-    todayWindSpeedDisplay.textContent = `Wind: ${response.windSpeed} m/s`;
+    $("#today-section").show(); // show the hidden today section
+    $("#city").textContent = `${response.city} (${moment().format("DD/MM/YYYY")})`;
+    $("#today-temp").textContent = `Temp: ${response.temp}\u00B0C`;
+    $("today-humidity").textContent = `Humidity: ${response.humidity}%`;
+    $("today-wind-speed").textContent = `Wind: ${response.windSpeed} m/s`;
     display5Day(response);
 };
 
@@ -138,6 +131,8 @@ getFromLocalStorage();
 // listen to the search button being clicked and extract the city name
 // from the user city name search field, send it to the API call function
 $("#search-button").on("click", function() {
+    $(clearHistoryButtons).show();
+    console.log("AM I WORKING??")
     let searchCity = $("#search-input").val();
     $("#search-input").val("");
     getLatAndLon(searchCity);
@@ -147,6 +142,7 @@ $("#search-button").on("click", function() {
 // button, send the city name to the API call function
 $(".city-button").on("click", function(event) {
     let searchCity = event.target.innerHTML;
+    console.log("AM I WORKING????")
     getLatAndLon(searchCity);
 });
 
@@ -156,5 +152,5 @@ $(".city-button").on("click", function(event) {
 $("#clear-button").on("click", function() {
     localStorage.clear();
     let clearHistoryButtons = getElementById("button-list");
-    $(clearHistoryButtons).hide();
+    //$(clearHistoryButtons).html("");
 });
