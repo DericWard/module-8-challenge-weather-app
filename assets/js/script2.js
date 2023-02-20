@@ -1,20 +1,5 @@
 const APIKey = "451e60a05a73232b3bf03933f49433c3";
 
-function displayToday(response) {
-    let todaysDate = moment();
-    let todaySection = document.getElementById("today-section");
-    let cityDisplay = document.getElementById("city");
-    let todayTempDisplay = document.getElementById("today-temp");
-    let todayHumidityDisplay = document.getElementById("today-humidity");
-    let todayWindSpeedDisplay = document.getElementById("today-wind-speed");
-
-    $(todaySection).show();
-    cityDisplay.textContent = `${response.city} (${todaysDate.format("DD/MM/YYYY")})`;
-    todayTempDisplay.textContent = `Temp: ${response.temp}\u00B0C`;
-    todayHumidityDisplay.textContent = `Humidity: ${response.humidity}%`;
-    todayWindSpeedDisplay.textContent = `Wind: ${response.windSpeed} m/s`;
-};
-
 function display5Day(response) {
     let forecastSection = document.getElementById("forecast-section");
     let queryURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${response.lat}&lon=${response.lon}&appid=${APIKey}`;
@@ -68,6 +53,23 @@ function display5Day(response) {
         });
 };
 
+function displayToday(response) {
+    let todaysDate = moment();
+    let todaySection = document.getElementById("today-section");
+    let cityDisplay = document.getElementById("city");
+    let todayTempDisplay = document.getElementById("today-temp");
+    let todayHumidityDisplay = document.getElementById("today-humidity");
+    let todayWindSpeedDisplay = document.getElementById("today-wind-speed");
+
+    $(todaySection).show();
+    cityDisplay.textContent = `${response.city} (${todaysDate.format("DD/MM/YYYY")})`;
+    todayTempDisplay.textContent = `Temp: ${response.temp}\u00B0C`;
+    todayHumidityDisplay.textContent = `Humidity: ${response.humidity}%`;
+    todayWindSpeedDisplay.textContent = `Wind: ${response.windSpeed} m/s`;
+
+    display5Day(response);
+};
+
 function createCityButton(city) {
     let button = document.createElement("button");
     let buttonListElement = document.createElement("li");
@@ -115,7 +117,6 @@ function getLatAndLon(searchCity) {
                 lon: response.coord.lon
             };
             displayToday(todayAndLatLon);
-            display5Day(todayAndLatLon);
             saveCity(response.name);
         });
 };
