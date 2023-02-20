@@ -1,14 +1,18 @@
 const APIKey = "451e60a05a73232b3bf03933f49433c3";
 
+let todaysDate = moment();
+
+const data = localStorage.getItem("city-data");
+const city = localStorage.getItem("cities");
+
+let cityData = city? JSON.parse(city) : [];
+
 function displayToday(response) {
-    let todaysDate = moment();
-    let todaySection = document.getElementById("today-section");
     let cityDisplay = document.getElementById("city");
     let todayTempDisplay = document.getElementById("today-temp");
     let todayHumidityDisplay = document.getElementById("today-humidity");
     let todayWindSpeedDisplay = document.getElementById("today-wind-speed");
 
-    $(todaySection).show();
     cityDisplay.textContent = `${response.city} (${todaysDate.format("DD/MM/YYYY")})`;
     todayTempDisplay.textContent = `Temp: ${response.temp}\u00B0C`;
     todayHumidityDisplay.textContent = `Humidity: ${response.humidity}%`;
@@ -16,10 +20,7 @@ function displayToday(response) {
 };
 
 function display5Day(response) {
-    let forecastSection = document.getElementById("forecast-section");
     let queryURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${response.lat}&lon=${response.lon}&appid=${APIKey}`;
-
-    $(forecastSection).show();
 
     $.ajax({
         url: queryURL,
@@ -68,35 +69,40 @@ function display5Day(response) {
         });
 };
 
+function saveCity(city) {
+    let cities = JSON.parse(localStorage.getItem("cities"));
+
+    if (!cities) cities = [];
+
+    for(let i = 0; i < cities.length; i++) {
+        if (city === cities[i]) {
+            return;
+        }
+    }
+
+    cities.unshift(city);
+    localStorage.setItem("cities", JSON.stringify(cities));
+
+    createCityButton(city);
+};
+
 function createCityButton(city) {
     let button = document.createElement("button");
     let buttonListElement = document.createElement("li");
     let buttonList = document.getElementById("button-list");
 
     button.innerHTML = city;
+
     button.setAttribute("class", "city-button");
     buttonListElement.appendChild(button);
     buttonList.appendChild(buttonListElement);
 };
 
-function saveCity(city) {
-    let cities = JSON.parse(localStorage.getItem("cities"));
-    if (!cities) cities = [];
-    for(let i = 0; i < cities.length; i++) {
-        if (city === cities[i]) {
-            return;
-        };
-    };
-    cities.unshift(city);
-    localStorage.setItem("cities", JSON.stringify(cities));
-    createCityButton(city);
-};
-
-function getFromLocalStorage(){
-    let citiesArray = JSON.parse(localStorage.getItem("cities")) || [];
-    for(let i = 0; i < citiesArray.length; i++) {
-        createCityButton(citiesArray[i]);
-    };
+function buttonEvents(button) {
+    button.addEventListener("click", function() {
+        let searchCity = button.innerHTML;
+        getLatAndLon(searchCity);
+    });
 };
 
 function getLatAndLon(searchCity) {
@@ -120,21 +126,61 @@ function getLatAndLon(searchCity) {
         });
 };
 
+function getFromLs(){
+    let citiesArray = JSON.parse(localStorage.getItem("cities")) || [];
+
+    for(let i = 0; i < citiesArray.length; i++) {
+        createCityButton(citiesArray[i]);
+    };
+};
+
 getFromLocalStorage();
 
 $("#search-button").on("click", function() {
     let searchCity = $("#search-input").val();
-    $("#search-input").val("");
     getLatAndLon(searchCity);
 });
 
-$(".city-button").on("click", function(event) {
-    let searchCity = event.target.innerHTML;
-    getLatAndLon(searchCity);
-});
 
-$("#clear-button").on("click", function() {
-    localStorage.clear();
-    let clearHistoryButtons = $("#button-list");
-    $(clearHistoryButtons).hide();
-});
+
+// $("#clear-button").on("click", function() {
+//     let hideButtons = document.getElementById("history-button-list");
+//     let hideToday = document.getElementById("today");
+//     let hideForecast = document.getElementById("forecast");
+    
+//     hideButtons.style.display = "none";
+//     hideToday.style.display = "none";
+//     hideForecast.style.display = "none";
+
+//     localStorage.clear();
+// });
+
+
+
+
+// function updateUI() {
+//     let values = [], keys = Object.keys(localStorage), i = keys.length;
+//     while(i--) {values.push(localStorage.getItem(keys[i])); }
+//     document.getElementById("city-buttons").textContent = values;
+// }
+
+// if(!citiesArray){
+//     citiesArray = []
+// }
+
+// //search the array, see if the city exists.  if it does return
+
+
+// citiesArray.push("berlin")
+// localStorage.set("cities", JSON.stringify(citiesArray))
+// //                 key         value
+// //create the button
+
+// $("#search-button").on("click", function() {
+//     let searchCity = $("#search-input").val();
+//     console.log(searchCity);
+//     getLatAndLon(searchCity);
+//     // saveToStorage(searchCity);
+//     // storage(searchCity);
+    
+// });

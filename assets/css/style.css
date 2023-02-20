@@ -7,6 +7,7 @@ ul {
     flex-direction: column;
 }
 #today-section {
+  display: none; /* hide today section on load */
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -16,8 +17,11 @@ ul {
     border: 2px solid #969696;
     background: white;
 }
+#forecast-section {
+  display: none; /* hide 5-day forecast section on load */
+}
 .card {
-    display: inline;
+  display: inline;
 }
 .card-deck {
  display: flex;
@@ -33,19 +37,32 @@ ul {
   border-bottom: 1px solid black;
   padding: 2rem;
 }
+#search-button {
+  text-align: center;
+  margin-top: -20px;
+  background-color: gray;
+  border-color: black;
+  color: white;
+  width: 100%;
+  border-radius: 5px;
+}
+#clear-button {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: gray;
+  border-color: black;
+  color: white;
+  width: 100%;
+  border-radius: 5px;
+}
 .city-button {
   border-style: solid black;
   margin-top: 10px;
   margin-left: -20px;
   width: 100%;
   padding: 8px;
-}
-#search-button {
-  text-align: center;
-  margin-top: -20px;
-  background-color: gray;
-  color: white;
-  width: 100%;
+  border-radius: 5px;
 }
 input {
   width: 100% !important;
@@ -54,9 +71,4 @@ aside {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* align-content: center; */
 }
-/* form {
-  border: 2px solid blue;
-  width: 100% !important;
-} */

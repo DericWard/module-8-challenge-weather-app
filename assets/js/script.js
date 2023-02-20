@@ -2,21 +2,26 @@
 
     let todaysDate = moment();
 
-    function displayToday(response) {
-        let cityDisplay = document.getElementById("city");
-        let todayTempDisplay = document.getElementById("today-temp");
-        let todayHumidityDisplay = document.getElementById("today-humidity");
-        let todayWindSpeedDisplay = document.getElementById("today-wind-speed");
+    function saveCityButton(city) {
+        let buttonList = document.getElementById("button-list");
+        let buttonListElement = document.createElement("li");
+        let button = document.createElement("button");
 
-        cityDisplay.textContent = `${response.city} (${todaysDate.format("DD/MM/YYYY")})`;
-        todayTempDisplay.textContent = `Temp: ${response.temp}\u00B0C`;
-        todayHumidityDisplay.textContent = `Humidity: ${response.humidity}%`;
-        todayWindSpeedDisplay.textContent = `Wind: ${response.windSpeed} m/s`;
+        button.innerHTML = city;
+        buttonList.setAttribute("class", "listButton");
+        buttonList.classList.add("city-btns");
+        buttonListElement.appendChild(button);
+        buttonList.appendChild(buttonListElement);
     };
 
+    
     function display5Day(response) {
         let queryURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${response.lat}&lon=${response.lon}&appid=${APIKey}`;
     
+        let forecastSection = document.getElementById("forecast-section");
+        
+        console.log(response);
+
         $.ajax({
             url: queryURL,
             method: "GET"
@@ -52,20 +57,34 @@
             });
     };
 
-    function saveCityButton(city) {
-        let buttonList = document.getElementById("button-list");
-        let buttonListElement = document.createElement("li");
-        let button = document.createElement("button");
+    function displayToday(response) {
+        let todaySection = document.getElementById("today-section");
+        let cityDisplay = document.getElementById("city");
+        let todayTempDisplay = document.getElementById("today-temp");
+        let todayHumidityDisplay = document.getElementById("today-humidity");
+        let todayWindSpeedDisplay = document.getElementById("today-wind-speed");
 
-        button.innerHTML = city;
-        buttonList.setAttribute("class", "listButton");
-        buttonList.classList.add("city-btns");
-        buttonListElement.appendChild(button);
-        buttonList.appendChild(buttonListElement);
+        // $(todaySection).show();
+
+        // if (todaySection.style.display === "none") {
+        //     todaySection.style.display = "block";
+        // };
+
+        cityDisplay.textContent = `${response.city} (${todaysDate.format("DD/MM/YYYY")})`;
+        todayTempDisplay.textContent = `Temp: ${response.temp}\u00B0C`;
+        todayHumidityDisplay.textContent = `Humidity: ${response.humidity}%`;
+        todayWindSpeedDisplay.textContent = `Wind: ${response.windSpeed} m/s`;
+
+        display5Day(response);
     };
-    
+
     $("#search-button").on("click", function() {
+        // event.preventdefault();
         let searchCity = $("#search-input").val();
+        // $("#search-input").val(""); //??
+        // $('input[type="text"]').val(""); //??
+        // $('input[name="test"]').val(""); //??
+
         let queryLatLon = `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&mode=json&units=metric&appid=${APIKey}`;    
 
         $.ajax({
@@ -81,8 +100,8 @@
                     lon: response.coord.lon
                 };
                 displayToday(todayAndLatLon);
-                display5Day(todayAndLatLon);
-                saveCityButton(searchCity);
+                // display5Day(todayAndLatLon);
+                // saveCityButton(searchCity);
             });
     });
 

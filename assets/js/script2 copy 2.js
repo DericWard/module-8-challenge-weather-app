@@ -1,25 +1,39 @@
 const APIKey = "451e60a05a73232b3bf03933f49433c3";
 
-function displayToday(response) {
-    let todaysDate = moment();
-    let todaySection = document.getElementById("today-section");
-    let cityDisplay = document.getElementById("city");
-    let todayTempDisplay = document.getElementById("today-temp");
-    let todayHumidityDisplay = document.getElementById("today-humidity");
-    let todayWindSpeedDisplay = document.getElementById("today-wind-speed");
+// create the buttons for previously-searched cities
+function createCityButton(city) {
+    let button = document.createElement("button");
+    let buttonListElement = document.createElement("li");
+    let buttonList = document.getElementById("button-list");
 
-    $(todaySection).show();
-    cityDisplay.textContent = `${response.city} (${todaysDate.format("DD/MM/YYYY")})`;
-    todayTempDisplay.textContent = `Temp: ${response.temp}\u00B0C`;
-    todayHumidityDisplay.textContent = `Humidity: ${response.humidity}%`;
-    todayWindSpeedDisplay.textContent = `Wind: ${response.windSpeed} m/s`;
+    button.innerHTML = city;
+    button.setAttribute("class", "city-button");
+    buttonListElement.appendChild(button);
+    buttonList.appendChild(buttonListElement);
 };
 
+// save previously-searched cities to local storage
+function saveCity(city) {
+    let cities = JSON.parse(localStorage.getItem("cities"));
+    if (!cities) cities = [];
+    for(let i = 0; i < cities.length; i++) {
+        if (city === cities[i]) {
+            return;
+        };
+    };
+    cities.unshift(city);
+    localStorage.setItem("cities", JSON.stringify(cities));
+    createCityButton(city);
+};
+
+// loop through the API data to build and display each of the next 5 days forecasts,
+// find and extract the same time of day from the API data for each of these forecasts, 
+// and display on each card, (get the icon for the forecast and display it.)
 function display5Day(response) {
     let forecastSection = document.getElementById("forecast-section");
     let queryURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${response.lat}&lon=${response.lon}&appid=${APIKey}`;
 
-    $(forecastSection).show();
+    $(forecastSection).show(); // show the hidden 5-day forecast section
 
     $.ajax({
         url: queryURL,
@@ -66,39 +80,28 @@ function display5Day(response) {
                 // console.log(cardIcon);                      
             };  
         });
+        saveCity(response.name);
 };
 
-function createCityButton(city) {
-    let button = document.createElement("button");
-    let buttonListElement = document.createElement("li");
-    let buttonList = document.getElementById("button-list");
+// use the API data to write to the screen for today's current forecast
+function displayToday(response) {
+    let todaysDate = moment();
+    const $todaySection = $("#today-section");
+    const $cityDisplay = $("#city");
+    let todayTempDisplay = document.getElementById("today-temp");
+    let todayHumidityDisplay = document.getElementById("today-humidity");
+    let todayWindSpeedDisplay = document.getElementById("today-wind-speed");
 
-    button.innerHTML = city;
-    button.setAttribute("class", "city-button");
-    buttonListElement.appendChild(button);
-    buttonList.appendChild(buttonListElement);
+    $todaySection.show(); // show the hidden today section
+    $cityDisplay.textContent = `${response.city} (${todaysDate.format("DD/MM/YYYY")})`;
+    todayTempDisplay.textContent = `Temp: ${response.temp}\u00B0C`;
+    todayHumidityDisplay.textContent = `Humidity: ${response.humidity}%`;
+    todayWindSpeedDisplay.textContent = `Wind: ${response.windSpeed} m/s`;
+    display5Day(response);
 };
 
-function saveCity(city) {
-    let cities = JSON.parse(localStorage.getItem("cities"));
-    if (!cities) cities = [];
-    for(let i = 0; i < cities.length; i++) {
-        if (city === cities[i]) {
-            return;
-        };
-    };
-    cities.unshift(city);
-    localStorage.setItem("cities", JSON.stringify(cities));
-    createCityButton(city);
-};
-
-function getFromLocalStorage(){
-    let citiesArray = JSON.parse(localStorage.getItem("cities")) || [];
-    for(let i = 0; i < citiesArray.length; i++) {
-        createCityButton(citiesArray[i]);
-    };
-};
-
+// send off the initial API call to obtain the latitude and longitude of the
+// searched city, and extract today's data from it to display on today's forecast
 function getLatAndLon(searchCity) {
     let queryLatLon = `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&mode=json&units=metric&appid=${APIKey}`;    
 
@@ -115,26 +118,43 @@ function getLatAndLon(searchCity) {
                 lon: response.coord.lon
             };
             displayToday(todayAndLatLon);
-            display5Day(todayAndLatLon);
-            saveCity(response.name);
+            // display5Day(todayAndLatLon);
+            // saveCity(response.name);
         });
 };
 
+// retrieve list of previously-searched cities from local storage
+function getFromLocalStorage(){
+    let citiesArray = JSON.parse(localStorage.getItem("cities")) || [];
+    for(let i = 0; i < citiesArray.length; i++) {
+        createCityButton(citiesArray[i]);
+    };
+};
+
+// run function getFromLocalStorage to start the process of displaying
+// previously-searched cities buttons
 getFromLocalStorage();
 
+// listen to the search button being clicked and extract the city name
+// from the user city name search field, send it to the API call function
 $("#search-button").on("click", function() {
     let searchCity = $("#search-input").val();
     $("#search-input").val("");
     getLatAndLon(searchCity);
 });
 
+// listen for the previously-searched city buttons, extract the city name of the
+// button, send the city name to the API call function
 $(".city-button").on("click", function(event) {
     let searchCity = event.target.innerHTML;
     getLatAndLon(searchCity);
 });
 
+// listen for the 'clear previously-searched city buttons' to be clicked,
+// clear the local storage of the searched cities, hide the buttons from 
+// the display.
 $("#clear-button").on("click", function() {
     localStorage.clear();
-    let clearHistoryButtons = $("#button-list");
+    let clearHistoryButtons = getElementById("button-list");
     $(clearHistoryButtons).hide();
 });
