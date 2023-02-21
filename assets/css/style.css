@@ -12,9 +12,8 @@ ul {
   box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    /* background-color: gray; */
     padding-left: 10px;
-    height: 160px;
+    height: auto;
     border: 2px solid #969696;
     background: grey;
 }
