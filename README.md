@@ -1,5 +1,7 @@
 # module-8-challenge-weather-app
-A JS weather app that brings back today's and the next five days weather forecast for the city you request, and adds a button for each city you search for.
+A JS weather app that display's the weather for your choice of city.
+Displayed is today's weather for the next two hours, and a five day weather forecast for the city you request.
+A previously-searched-city button is added for each city you search for, avoiding the user having to re-type a city name. 
 The previously-searched buttons persist on the user's device, when using the app, until the user chooses to delete them.
 
 #### GitHub repo: 
