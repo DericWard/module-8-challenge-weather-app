@@ -7,7 +7,7 @@ https://github.com/DericWard/module-8-challenge-weather-app
 #### GitHub Pages live app: 
 https://dericward.github.io/module-8-challenge-weather-app/
 
-## Desktop screenshot:
+## Screenshot:
 ![image](https://user-images.githubusercontent.com/50495939/220235369-aad10e72-b4ad-42f4-b416-edc890e555a1.png)
 
 
