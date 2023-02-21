@@ -1,5 +1,8 @@
 const APIKey = "451e60a05a73232b3bf03933f49433c3";
 
+// un-hide the 5-day forecast section and loop through the API data to build and display each of the next 5 
+// days forecasts, find and extract the same time of day from the API data for each of these forecasts, 
+// and display on each card, (get the icon for the forecast and display it.)
 function display5Day(response) {
     let forecastSection = document.getElementById("forecast-section");
     let queryURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${response.lat}&lon=${response.lon}&appid=${APIKey}`;
@@ -51,8 +54,8 @@ function display5Day(response) {
         });
 };
 
-function displayToday(response) {
-   
+// un-hide the display for today and use the API data to write to display today's current forecast
+function displayToday(response) {  
     let todaysDate = moment();
     let todaySection = document.getElementById("today-section");
     let cityDisplay = document.getElementById("city");
@@ -67,13 +70,15 @@ function displayToday(response) {
     $(todaySection).show();
 
     cityDisplay.textContent = `${response.city} (${todaysDate.format("DD/MM/YYYY")})`;
-    todayTempDisplay.textContent = `Temp: ${response.temp}\u00B0C\u00A0\u00A0\u00A0`;
+
+    todayTempDisplay.textContent = `\u00A0\u00A0Temp: ${response.temp}\u00B0C\u00A0\u00A0\u00A0`;
     todayWindSpeedDisplay.textContent = `Wind: ${response.windSpeed} m/s\u00A0\u00A0\u00A0`;
     todayHumidityDisplay.textContent = `Humidity: ${response.humidity}%`;
 
     display5Day(response);
 };
 
+// create the buttons for previously-searched cities
 function createCityButton(city) {
     let button = document.createElement("button");
     let buttonListElement = document.createElement("li");
@@ -85,6 +90,8 @@ function createCityButton(city) {
     buttonList.appendChild(buttonListElement);
 };
 
+// save currently-searched city to local storage and display the city's button,
+// if it doesn't already exist in local storage
 function saveCity(city) {
     let cities = JSON.parse(localStorage.getItem("cities"));
     if (!cities) cities = [];
@@ -98,6 +105,7 @@ function saveCity(city) {
     createCityButton(city);
 };
 
+// retrieve list of previously-searched cities from local storage
 function getFromLocalStorage(){
     let citiesArray = JSON.parse(localStorage.getItem("cities")) || [];
     for(let i = 0; i < citiesArray.length; i++) {
@@ -105,6 +113,8 @@ function getFromLocalStorage(){
     };
 };
 
+// send off the initial API call to obtain the latitude and longitude of the
+// searched city, and extract today's data from it to display on today's forecast
 function getLatAndLon(searchCity) {
     let queryLatLon = `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&mode=json&units=metric&appid=${APIKey}`;    
 
@@ -128,21 +138,29 @@ function getLatAndLon(searchCity) {
         });
 };
 
+// run function getFromLocalStorage to start the process of displaying
+// previously-searched cities buttons
 getFromLocalStorage();
 
+// listen to the search button being clicked and extract the city name
+// from the user city name search field, send it to the API call function
 $("#search-button").on("click", function() {
     let searchCity = $("#search-input").val();
     $("#search-input").val("");
     getLatAndLon(searchCity);
 });
 
+// listen for the previously-searched city buttons, extract the city name of the
+// button, send the city name to the API call function
 $(".city-button").on("click", function(event) {
     let searchCity = event.target.innerHTML;
     getLatAndLon(searchCity);
 });
 
+// listen for the 'clear previously-searched city buttons' to be clicked,
+// clear the local storage of the searched cities, hide the buttons from 
+// the display.
 $("#clear-button").on("click", function() {
     localStorage.setItem("cities", JSON.stringify([]));
     $("#button-list").html("");
-    
 });
