@@ -35,25 +35,24 @@ function display5Day(response) {
             for (let i = 0; i < 5; i++) {
                 let cardDate = document.getElementById(`card${i+1}-date`);
                 let cardTime = document.getElementById(`card${i+1}-time`);
-                // let cardIcon = document.getElementById(`card${i+1}-img-top`); // NOT WORKING CORRECTLY
-                let cardIcon = document.getElementById(`card${i+1}-icon`);
                 let cardTemp = document.getElementById(`card${i+1}-temp`);
                 let cardWind = document.getElementById(`card${i+1}-wind`);
                 let cardHumidity = document.getElementById(`card${i+1}-humidity`);
                 
+                let cardIconURL =  `https://openweathermap.org/img/wn/${fiveDayArray[i].icon}@2x.png`;
+                document.querySelector('#card' + (i+1) + '-icon').setAttribute('src', cardIconURL);
+
                 cardDate.textContent = `(${fiveDayArray[i].date})`;// increment date for each card
-                cardTime.textContent = `@${fiveDayArray[i].time}`;
-                // cardIcon.textContent = `https://openweathermap.org/img/wn/${fiveDayArray[i].icon}.png`;
-                // cardIcon.innerHTML = `<img src="https://openweathermap.org/img/wn/${icon}@2x.png"></img>`;
+                cardTime.textContent = `@${fiveDayArray[i].time}`;    
                 cardTemp.textContent = `Temp: ${fiveDayArray[i].temp}\u00B0C`;
                 cardWind.textContent = `Wind: ${fiveDayArray[i].wind} m/sec`;
-                cardHumidity.textContent = `Humidity: ${fiveDayArray[i].humidity}%`;
-                // console.log(cardIcon);                      
+                cardHumidity.textContent = `Humidity: ${fiveDayArray[i].humidity}%`;                     
             };  
         });
 };
 
 function displayToday(response) {
+   
     let todaysDate = moment();
     let todaySection = document.getElementById("today-section");
     let cityDisplay = document.getElementById("city");
@@ -61,7 +60,12 @@ function displayToday(response) {
     let todayHumidityDisplay = document.getElementById("today-humidity");
     let todayWindSpeedDisplay = document.getElementById("today-wind-speed");
 
+    let todayIconURL =  `https://openweathermap.org/img/wn/${response.icon}@2x.png`;
+    document.querySelector('#today-icon').setAttribute('src', todayIconURL);
+    
+    todaySection.style.display = "flex";
     $(todaySection).show();
+    
     cityDisplay.textContent = `${response.city} (${todaysDate.format("DD/MM/YYYY")})`;
     todayTempDisplay.textContent = `Temp: ${response.temp}\u00B0C`;
     todayHumidityDisplay.textContent = `Humidity: ${response.humidity}%`;
@@ -108,8 +112,11 @@ function getLatAndLon(searchCity) {
         url: queryLatLon,
         method: "GET"
         }).then(function(response) {
+            console.log(response);
+            console.log(response.weather[0].icon);
             let todayAndLatLon = {
                 city: response.name,
+                icon: response.weather[0].icon, 
                 temp: response.main.temp,
                 humidity: response.main.humidity,
                 windSpeed: response.wind.speed,
@@ -136,6 +143,6 @@ $(".city-button").on("click", function(event) {
 
 $("#clear-button").on("click", function() {
     localStorage.setItem("cities", JSON.stringify([]));
-    let clearHistoryButtons = $("#button-list");
-    $(clearHistoryButtons).html("");
+    $("#button-list").html("");
+    
 });

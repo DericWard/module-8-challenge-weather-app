@@ -8,14 +8,18 @@ ul {
 }
 #today-section {
   display: none; /* hide today section on load */
-    box-sizing: border-box;
+  align-items: center;  
+  box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-   
+    /* background-color: gray; */
     padding-left: 10px;
     height: 160px;
     border: 2px solid #969696;
-    background: white;
+    background: grey;
+}
+#today-icon {
+  margin-left: 10px;;
 }
 #forecast-section {
   display: none; /* hide 5-day forecast section on load */
