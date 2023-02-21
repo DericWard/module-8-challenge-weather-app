@@ -2,7 +2,7 @@ const APIKey = "451e60a05a73232b3bf03933f49433c3";
 
 // un-hide the 5-day forecast section and loop through the API data to build and display each of the next 5 
 // days forecasts, find and extract the same time of day from the API data for each of these forecasts, 
-// and display on each card, (get the icon for the forecast and display it.)
+// and display on each card, (get the icon for the forecast and display it
 function display5Day(response) {
     let forecastSection = document.getElementById("forecast-section");
     let queryURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${response.lat}&lon=${response.lon}&appid=${APIKey}`;
@@ -19,7 +19,6 @@ function display5Day(response) {
                 let day = {
                 date: response.list[i].dt_txt,
                 icon: response.list[i].weather[0].icon,
-                // temp: (response.list[i].main.temp - K).toFixed(2),
                 temp: Math.ceil(response.list[i].main.temp - K),
                 wind: Math.ceil(response.list[i].wind.speed),
                 humidity: response.list[i].main.humidity
@@ -28,8 +27,8 @@ function display5Day(response) {
                 let dateYear = day.date.slice(0, 4);
                 let dateMonth = day.date.slice(5, 7);
                 let dateDay = day.date.slice(8, 10);
-                // let dayTime = day.date.slice(11, 16);
-
+                // let dayTime = day.date.slice(11, 16); //removed time display as it was confusing for the user
+                // - being the time local to the user, not the time at the searched city
                 // day.time = `${dayTime}`;             
                 day.date = `${dateDay}/${dateMonth}/${dateYear}`;
                 fiveDayArray.push(day);   
