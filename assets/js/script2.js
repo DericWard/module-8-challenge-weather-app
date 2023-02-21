@@ -51,6 +51,24 @@ function display5Day(response) {
         });
 };
 
+// var todayTempDisplay = document.createElement("p");
+// todayTempDisplay.textContent = `Temp: ${response.temp}\u00B0C`;
+// todayTempDisplay.style.display = "block";
+
+// var todayHumidityDisplay = document.createElement("p");
+// todayHumidityDisplay.textContent = `Humidity: ${response.humidity}%`;
+// todayHumidityDisplay.style.display = "block";
+
+// var todayWindSpeedDisplay = document.createElement("p");
+// todayWindSpeedDisplay.textContent = `Wind: ${response.windSpeed} m/s`;
+// todayWindSpeedDisplay.style.display = "block";
+
+// // Add the new elements to the page
+// var todaySection = document.getElementById("today-section");
+// todaySection.appendChild(todayTempDisplay);
+// todaySection.appendChild(todayHumidityDisplay);
+// todaySection.appendChild(todayWindSpeedDisplay);
+
 function displayToday(response) {
    
     let todaysDate = moment();
@@ -65,11 +83,11 @@ function displayToday(response) {
     
     todaySection.style.display = "flex";
     $(todaySection).show();
-    
+
     cityDisplay.textContent = `${response.city} (${todaysDate.format("DD/MM/YYYY")})`;
-    todayTempDisplay.textContent = `Temp: ${response.temp}\u00B0C`;
+    todayTempDisplay.textContent = `Temp: ${response.temp}\u00B0C\u00A0\u00A0\u00A0`;
+    todayWindSpeedDisplay.textContent = `Wind: ${response.windSpeed} m/s\u00A0\u00A0\u00A0`;
     todayHumidityDisplay.textContent = `Humidity: ${response.humidity}%`;
-    todayWindSpeedDisplay.textContent = `Wind: ${response.windSpeed} m/s`;
 
     display5Day(response);
 };
