@@ -6,7 +6,7 @@
 #### The previously-searched buttons persist on the user's device until the user chooses to delete them.
 ### Motivation:
 #### To satisfy assignment 8 of edX's Front End Web Development bootcamp course to gain further practical experience
-#### using third-party APIs, using DOM manipulation via JavaScript with JQuery and AJAX, and implementing local storage.
+#### using server APIs, using DOM manipulation via JavaScript with JQuery and AJAX, and implementing local storage.
 ### Installation:
 #### To install this app please clone the following GitHub repo: https://github.com/DericWard/module-8-challenge-weather-app
 #### To use this app please visit the GitHub Pages live app: https://dericward.github.io/module-8-challenge-weather-app/
